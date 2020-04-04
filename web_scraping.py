@@ -1,4 +1,3 @@
-#Librerías
 from bs4 import BeautifulSoup
 import csv
 from selenium import webdriver
@@ -90,24 +89,28 @@ for item in fallecidosHtml:
                         dic_covid[nombre_pais]['fallecidos'] = num_temp
                     else:
                         dic_covid[nombre_pais]['fallecidos'] = num_fallecidos
+
 #Contagiados
 # Realizo una búsqueda por id y etiqueta en la página
-contagiados_Html = soup.find(id='ember34').find_all("span")
+contagiados_Html = soup.find(id='ember34').find_all("span", "flex-horizontal feature-list-item ember-view")
 
 for item in contagiados_Html:
-    p = item.find_all("p")
+    p = item.find_all("span")
     if len(p) != 0:
-        num_contagiados = p[0].span.strong.string.strip().replace('.', '')
-        nombre_pais = p[1].get_text().strip()
+        num_contagiados = p[0].get_text().strip().replace('.', '')
+        nombre_pais = p[2].get_text().strip()
         if(nombre_pais in dic_covid):
             dic_covid[nombre_pais]['contagiados'] = num_contagiados
         else:
-                registro = {'fecha': fecha, 'contagiados': num_contagiados,
+           registro = {'fecha': fecha, 'contagiados': num_contagiados,
                             'fallecidos': None, 'recuperados': None}
-                dic_covid[nombre_ciudad_pais] = registro
-
+           dic_covid[nombre_ciudad_pais] = registro
+            
+                
+# Se paso el diccionario a un dataframe                 
 df = pd.DataFrame(dic_covid).transpose().rename_axis('paises')
 
+# Este dataframe se pasa a un archivo csv
 df.to_csv('casos_paises_covid-19.csv', header=False,  mode='a')
 
 
