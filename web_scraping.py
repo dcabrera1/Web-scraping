@@ -108,6 +108,6 @@ for item in contagiados_Html:
 
 df = pd.DataFrame(dic_covid).transpose().rename_axis('paises')
 
-df.to_csv('casos_paises_covid-19', header=False,  mode='a')
+df.to_csv('casos_paises_covid-19.csv', header=False,  mode='a')
 
 
