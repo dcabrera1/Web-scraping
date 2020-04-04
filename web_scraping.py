@@ -90,7 +90,21 @@ for item in fallecidosHtml:
                         dic_covid[nombre_pais]['fallecidos'] = num_temp
                     else:
                         dic_covid[nombre_pais]['fallecidos'] = num_fallecidos
+#Contagiados
+# Realizo una búsqueda por id y etiqueta en la página
+contagiados_Html = soup.find(id='ember34').find_all("span")
 
+for item in contagiados_Html:
+    p = item.find_all("p")
+    if len(p) != 0:
+        num_contagiados = p[0].span.strong.string.strip().replace('.', '')
+        nombre_pais = p[1].get_text().strip()
+        if(nombre_pais in dic_covid):
+            dic_covid[nombre_pais]['contagiados'] = num_contagiados
+        else:
+                registro = {'fecha': fecha, 'contagiados': num_contagiados,
+                            'fallecidos': None, 'recuperados': None}
+                dic_covid[nombre_ciudad_pais] = registro
 
 df = pd.DataFrame(dic_covid).transpose().rename_axis('paises')
 
