@@ -5,11 +5,17 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+
 import datetime
 import pandas as pd
 
+# Cambio del user agent
+opts = Options()
+opts.add_argument('user-agent="Mozilla/75.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"')
+
 # Google chrome 80
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(chrome_options=opts)
 
 url = 'https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6'
 browser.get(url)
