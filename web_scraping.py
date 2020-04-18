@@ -50,7 +50,7 @@ fecha = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 # Recuperados
 # Realizo una búsqueda por id y etiqueta span de la página
-recuperados_html = soup.find(id='ember105').find_all("span")
+recuperados_html = soup.find(id='ember125').find_all("span")
 
 for item in recuperados_html:
     p = item.find_all("p")
@@ -63,7 +63,7 @@ for item in recuperados_html:
 
 # Fallecidos
 # Realizo una búsqueda por id y etiqueta en la página
-fallecidosHtml = soup.find(id='ember91').find_all("span")
+fallecidosHtml = soup.find(id='ember111').find_all("span")
 
 for item in fallecidosHtml:
     p = item.find_all("p")
